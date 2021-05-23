@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1> List of {{template_pet_type}} </h1>
+     <p><a href="/">Return to home page</a></p>
+     <ul>
+        {% for pet in template_pets %}
+         <li>
+           <a href="/animals/{{template_pet_type}}/{{loop.index0}}"> {{pet.name}} </a>
+         </li>
+        {% endfor %}
+      </ul>
+
+   </body>
+</html>
