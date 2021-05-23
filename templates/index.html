@@ -1,4 +1,8 @@
+{% extends "base.html"  %}
+
 <!DOCTYPE html>
+
+{% block content %}
 
 <h1>Adopt a Pet! </h1>
   <p> Browse through the links below to find your new furry friend:</p>
@@ -7,3 +11,5 @@
         <li><a href="/animals/{{pet}}">{{pet | title}}</a></li>
       {% endfor %}
     </ul>
+
+{% endblock %}

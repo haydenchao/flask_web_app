@@ -1,7 +1,9 @@
+{% extends "base.html"  %}
 <!DOCTYPE html>
 <html>
   <body>
-    <h1> {{ template_pet }}</h1>
+    {% block content %}
+    <h2> {{ template_pet }}</h2>
        <img src="{{template_image}}"/>
          <p> {{template_desc}} </p>
            <ul>
@@ -9,5 +11,6 @@
              <li> {{template_age}} </li>
            </ul>
          <p><a href="/">Return to home page</a></p>
+    {% endblock %}
   </body>
 </html>

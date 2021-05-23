@@ -24,5 +24,14 @@ def pet(pet_type, pet_id):
   return render_template('pet.html', template_pet=pet, template_image=image,template_desc=desc, template_breed=breed, template_age=age)
 
 
-  if __name__ == "__main__":
-      app.run(debug=True)
+@app.route('/about')
+def about():
+    return """ <h1> Welcome to the 'About Me' page </h1>
+    <img src="https://d17fnq9dkz9hgj.cloudfront.net/uploads/2012/11/147453034-pit-bull-myths-reality-632x475.jpg" width="200" height="150"/>
+    <p> We are a little shop that take cares of a lot of pets </p>
+    <p> The first few days in your home are special and critical for a pet. Read these tips about making it as smooth of a transition as possible.</p>
+    <a href="/">Return to Home Page</a>
+    """
+
+if __name__ == "__main__":
+    app.run(debug=True)
