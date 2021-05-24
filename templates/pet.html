@@ -10,7 +10,21 @@
              <li> {{template_breed}}</li>
              <li> {{template_age}} </li>
            </ul>
-         <p><a href="/">Return to home page</a></p>
+         <h3> Comment Sections </h3>
+         <div>
+           <ul>
+              {% for comment in template_comment %}
+                <li>{{template_date}} - {{comment}}</li>
+              {% endfor %}
+
+           </ul>
+           <form method="POST">
+             {{ template_form.hidden_tag() }}
+             {{ template_form.comment.label }}
+             {{ template_form.comment() }}
+             {{ template_form.submit() }}
+           </form>
+         </div>
     {% endblock %}
   </body>
 </html>

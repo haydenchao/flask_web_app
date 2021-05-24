@@ -1,7 +1,11 @@
 from flask import Flask, render_template
-from helper import pets
+from helper import pets, comments_list
+from form import CommentForm
+from datetime import date
 
 app = Flask(__name__)
+## must be set in order to enable CSRF protection
+app.config["SECRET_KEY"] = "secret_string"
 
 @app.route('/')
 def index():
@@ -14,24 +18,26 @@ def animals(pet_type):
   return render_template("animals.html", template_pet_type=pet_type, template_pets=pet_dict)
 
 
-@app.route('/animals/<pet_type>/<int:pet_id>')
+@app.route('/animals/<pet_type>/<int:pet_id>', methods=['GET','POST'])
 def pet(pet_type, pet_id):
+  form = CommentForm(csrf_enabled=False)
+  today = date.today()
+  if form.validate_on_submit():
+      new_comment = form.comment.data
+      comments_list.append(new_comment)
+
+
   pet = pets[pet_type][pet_id]['name']
   image = pets[pet_type][pet_id]['url']
   desc = pets[pet_type][pet_id]['description']
   age = pets[pet_type][pet_id]['age']
   breed = pets[pet_type][pet_id]['breed']
-  return render_template('pet.html', template_pet=pet, template_image=image,template_desc=desc, template_breed=breed, template_age=age)
+  return render_template('pet.html', template_pet=pet, template_image=image,template_desc=desc, template_breed=breed, template_age=age, template_form=form, template_comment=comments_list, template_date=today)
 
 
 @app.route('/about')
 def about():
-    return """ <h1> Welcome to the 'About Me' page </h1>
-    <img src="https://d17fnq9dkz9hgj.cloudfront.net/uploads/2012/11/147453034-pit-bull-myths-reality-632x475.jpg" width="200" height="150"/>
-    <p> We are a little shop that take cares of a lot of pets </p>
-    <p> The first few days in your home are special and critical for a pet. Read these tips about making it as smooth of a transition as possible.</p>
-    <a href="/">Return to Home Page</a>
-    """
+    return render_template('about.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
