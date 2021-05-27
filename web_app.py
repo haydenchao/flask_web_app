@@ -24,7 +24,7 @@ def pet(pet_type, pet_id):
   today = date.today()
   if form.validate_on_submit():
       new_comment = form.comment.data
-      comments_list.append(new_comment)
+      comments_list[pet_type].append(new_comment)
 
 
   pet = pets[pet_type][pet_id]['name']
@@ -32,7 +32,9 @@ def pet(pet_type, pet_id):
   desc = pets[pet_type][pet_id]['description']
   age = pets[pet_type][pet_id]['age']
   breed = pets[pet_type][pet_id]['breed']
-  return render_template('pet.html', template_pet=pet, template_image=image,template_desc=desc, template_breed=breed, template_age=age, template_form=form, template_comment=comments_list, template_date=today)
+  return render_template('pet.html', template_pet=pet, template_image=image,template_desc=desc,
+  template_breed=breed, template_age=age, template_form=form, 
+  template_comment=comments_list[pet_type], template_date=today)
 
 
 @app.route('/about')
